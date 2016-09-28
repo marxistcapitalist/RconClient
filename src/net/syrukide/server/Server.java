@@ -29,4 +29,22 @@ public class Server {
         return this.name;
     }
 
+    public void connect() {
+        try {
+            this.rcon.connect();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void checkIfReachable() {
+        try {
+            boolean d = this.host.isReachable(20);
+            System.out.println("Reachable: " + d);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

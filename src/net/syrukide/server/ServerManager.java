@@ -29,8 +29,10 @@ public class ServerManager {
             return;
         }
         try {
-            servers.add(new Server("uninspired-jail", InetAddress.getByName("127.0.0.1"), 27015, "password"));
-            servers.add(new Server("uninspired-surf", InetAddress.getByName("127.0.0.1"), 27106, "password"));
+            servers.add(new Server("uninspired-jail", InetAddress.getByName("98.192.43.173"), 27005, "password"));
+            //servers.add(new Server("testing", InetAddress.getByName("192.168.0.128"), 80, "password"));
+            servers.add(new Server("uninspired-surf", InetAddress.getByName("98.192.43.173"), 27016, "password"));
+            servers.add(new Server("uninspired-surf", InetAddress.getByName("98.192.43.173"), 80, "password"));
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -39,6 +41,12 @@ public class ServerManager {
         }
     }
 
+    public void connect() {
+        for(Server s : servers) {
+            s.checkIfReachable();
+            s.connect();
+        }
+    }
 
 
 }

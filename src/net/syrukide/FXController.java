@@ -37,7 +37,8 @@ public class FXController {
     }
 
     @FXML protected void handleServerStart(ActionEvent event) {
-        System.out.println("This feature is not implemented yet.");
+        main.getServerManager().connect();
+        System.out.println("Attempted to connect.");
     }
 
     @FXML protected void handleServerStop(ActionEvent event) {

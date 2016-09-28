@@ -57,6 +57,7 @@ public class ServerConnector {
     public void connect() throws IOException, AuthenticationException{
         synchronized(sync) {
             this.requestId = rand.nextInt();
+            System.out.println(this.server + " | " + this.port);
             this.socket = new Socket(this.server, this.port);
         }
 
