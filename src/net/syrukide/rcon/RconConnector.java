@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * Created by Ethan on 9/21/2016.
  */
-public class ServerConnector {
+public class RconConnector implements Runnable {
 
     private InetAddress server;
     private int port;
@@ -25,24 +25,13 @@ public class ServerConnector {
     private final Random rand = new Random();
 
     /**
-     * Create a ServerConnector with default values
-     * @throws UnknownHostException
-     */
-    public ServerConnector() throws UnknownHostException {
-        this.server = InetAddress.getByName("127.0.0.1");
-        this.port = 27015;
-        this.password = "";
-        this.charset = Charset.forName("UTF-8");
-    }
-
-    /**
-     * Create a ServerConnector
+     * Create a RconConnector
      * @param address Host server to connect to
      * @param port Port to use on the host server
      * @param pass RCON password of the host server
      * @throws UnknownHostException
      */
-    public ServerConnector(InetAddress address, int port, String pass) throws UnknownHostException, IllegalArgumentException {
+    public RconConnector(InetAddress address, int port, String pass) throws UnknownHostException, IllegalArgumentException {
         this.server = address;
         if(port < 1 || port > 65535)
             throw new IllegalArgumentException("Port out of range");
@@ -70,6 +59,16 @@ public class ServerConnector {
     private RconPacket send(int type, byte[] payload) throws IOException {
         synchronized(sync) {
             return RconPacket.send(this, type, payload);
+        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            this.connect();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return;
         }
     }
 

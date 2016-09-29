@@ -1,6 +1,6 @@
 package net.syrukide.server;
 
-import net.syrukide.rcon.ServerConnector;
+import net.syrukide.rcon.RconConnector;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -14,14 +14,14 @@ public class Server {
     private InetAddress host;
     private int port;
     private String password;
-    private ServerConnector rcon;
+    private RconConnector rcon;
 
     public Server(String name, InetAddress host, int port, String password) throws UnknownHostException {
         this.name = name;
         this.host = host;
         this.port = port;
         this.password = password;
-        this.rcon = new ServerConnector(host, port, password);
+        this.rcon = new RconConnector(host, port, password);
     }
 
     @Override

@@ -50,7 +50,7 @@ public class RconPacket {
      * @throws IOException
      * @throws MalformedPacketException
      */
-    protected static RconPacket send(ServerConnector rcon, int type, byte[] payload) throws IOException {
+    protected static RconPacket send(RconConnector rcon, int type, byte[] payload) throws IOException {
         try {
             RconPacket.write(rcon.getSocket().getOutputStream(), rcon.getRequestId(), type, payload);
         }
