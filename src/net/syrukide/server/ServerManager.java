@@ -3,6 +3,9 @@ package net.syrukide.server;
 import net.syrukide.Main;
 
 import java.net.InetAddress;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -29,8 +32,11 @@ public class ServerManager {
             return;
         }
         try {
-            servers.add(new Server("uninspired-jail", InetAddress.getByName("98.192.43.173"), 27015, "password"));
-            servers.add(new Server("uninspired-surf", InetAddress.getByName("98.192.43.173"), 27018, "password"));
+            byte[] rawpassword = Files.readAllBytes(Paths.get("C:/Users/Ethan/Documents/rconpass.txt"));
+            String password = new String(rawpassword, Charset.forName("UTF-8"));
+            servers.add(new Server("uninspired-jail", InetAddress.getByName("98.192.43.173"), 27015, password));
+            //servers.add(new Server("uninspired-surf", InetAddress.getByName("98.192.43.173"), 27016, "password"));
+            //servers.add(new Server("uninspired-dods", InetAddress.getByName("98.192.43.173"), 27018, "password"));
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -41,10 +47,11 @@ public class ServerManager {
 
     public void connect() {
         for(Server s : servers) {
-            s.checkIfReachable();
             s.connect();
         }
     }
 
-
+    public Server getSelectedServer() {
+        return servers.get(0);
+    }
 }

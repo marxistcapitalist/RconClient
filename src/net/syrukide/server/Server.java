@@ -1,6 +1,8 @@
 package net.syrukide.server;
 
+import net.syrukide.rcon.PACKET_TYPE;
 import net.syrukide.rcon.RconConnector;
+import net.syrukide.rcon.RconPacket;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -37,14 +39,7 @@ public class Server {
         }
     }
 
-    public void checkIfReachable() {
-        try {
-            boolean d = this.host.isReachable(20);
-            System.out.println("Reachable: " + d);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
+    public RconPacket sendCommand(String command) throws Exception {
+        return rcon.send(PACKET_TYPE.SERVERDATA_EXECCOMMAND.getNumVal(), command.getBytes());
     }
-
 }

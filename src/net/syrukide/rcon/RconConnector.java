@@ -51,12 +51,13 @@ public class RconConnector implements Runnable {
         }
 
         RconPacket auth = this.send(RconPacket.SERVERDATA_AUTH, this.password.getBytes(this.charset));
+        System.out.println("Response ID: " + auth.getRequestId());
         if(auth.getRequestId() == -1) {
             throw new AuthenticationException("Password rejected by server");
         }
     }
 
-    private RconPacket send(int type, byte[] payload) throws IOException {
+    public RconPacket send(int type, byte[] payload) throws IOException {
         synchronized(sync) {
             return RconPacket.send(this, type, payload);
         }

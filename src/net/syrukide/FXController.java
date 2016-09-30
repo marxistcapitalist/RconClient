@@ -2,11 +2,16 @@ package net.syrukide;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import net.syrukide.rcon.RconPacket;
+
+import java.nio.charset.Charset;
 
 public class FXController {
 
     private Main main;
+    @FXML private TextField server_console_input;
 
     @FXML protected void handleExportLog(ActionEvent event) {
         System.out.println("This feature is not implemented yet.");
@@ -33,7 +38,13 @@ public class FXController {
     }
 
     @FXML protected void handleConsoleInput(ActionEvent event) {
-        System.out.println("This feature is not implemented yet.");
+        try {
+            RconPacket response = main.getServerManager().getSelectedServer().sendCommand(server_console_input.getText());
+            System.out.println(new String(response.getPayload(), Charset.forName("UTF-8")));
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML protected void handleServerStart(ActionEvent event) {
